@@ -121,6 +121,12 @@ void init() {
     because malloc() is being used and it is dynamic, the data will be put into the HEAP where 
     we will manually interact with it. Moreover, this does not follow LIFO (Last In First Out)
     like the Stack does.
+	**** just because it's using malloc() to store data into the heap does not automatically
+ 	mean heap overflow, LOL, the reason we're able to over-write the buffer is because 
+  		scanf() is being used without formatting just '%s', so it will read
+    		all the input and try to store it into the variable. If we did
+      		like %s %s or something it would only take two strings and we can set 
+		string limits.
 
     The Stack stores functions, variables, condiitons, and overwriting the stack 
     allows you to modify return addresses and this can lead to RCE if a function is being 
