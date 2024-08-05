@@ -1,0 +1,24 @@
+so we SSH into the machine and we have a program named "bin".
+
+when doing ./bin it says "error environment variable not set SECRET_DIR".
+
+whatever SECRET_DIR is set to in env variables it will print the files in that directory.
+
+That's when I realized it's probably running "ls $SECRET_DIR".
+
+So I realized it's running ls as root because it was able to list the /root directory and 
+I AM NOT (as a ctf-player SUID). Therefore, this binary is running under a GUID (group user id) of ROOT (0).
+
+turns out "ls" can be abused by doing this:
+
+"ls $SECRET_DIR"
+
+$SECRET_DIR = "&& cat /root/flag.txt"
+
+what the program will do:
+
+"ls && cat /root/flag.txt".
+Thereforeeee, we now will list the current files (ls), and the "&&" will
+run our cat command on /root/flag.txt.
+
+export SECRET_DIR="&& cat /root/flag.txt"
